@@ -1,0 +1,17 @@
+test_full_backfill_and_independent_metrics (test_analytics.AnalyticsTests.test_full_backfill_and_independent_metrics) ... ok
+test_late_price_and_missing_price (test_analytics.AnalyticsTests.test_late_price_and_missing_price) ... ok
+test_out_of_order_missing_start_and_latest_meter (test_analytics.AnalyticsTests.test_out_of_order_missing_start_and_latest_meter) ... ok
+test_rollback_and_restart (test_analytics.AnalyticsTests.test_rollback_and_restart) ... ok
+test_connector_and_soc (test_ingestion.ContractTests.test_connector_and_soc) ... ok
+test_escaped_invalid_unicode_is_quarantinable (test_ingestion.ContractTests.test_escaped_invalid_unicode_is_quarantinable) ... ok
+test_every_producer_payload (test_ingestion.ContractTests.test_every_producer_payload) ... ok
+test_invalid_wire_messages (test_ingestion.ContractTests.test_invalid_wire_messages) ... ok
+test_negative_wholesale_allowed (test_ingestion.ContractTests.test_negative_wholesale_allowed) ... ok
+test_unplug_cannot_precede_charge_completion (test_ingestion.ContractTests.test_unplug_cannot_precede_charge_completion) ... ok
+test_durable_dedup_quarantine_and_fk (test_ingestion.PersistenceTests.test_durable_dedup_quarantine_and_fk) ... ok
+test_timezone_aware_timestamp_can_be_fetched (test_ingestion.TimestampQueryTests.test_timezone_aware_timestamp_can_be_fetched) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.025s
+
+OK

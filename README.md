@@ -808,3 +808,14 @@ instructions. Record actual student contributions and acknowledge the substantiv
 OpenAI Codex assistance with code, validation and documentation in the required
 genAI usage report. The final database, complete schema documentation and running
 dashboard evidence must reflect the group's integrated implementation.
+
+
+## Member 3: Storage and Analytics
+
+See [Member 3 handoff](MEMBER3_HANDOFF.md) for the seven-stage
+[notebook](Member3_Storage_Analytics.ipynb), stateful DuckDB storage,
+Plotly figures and the Member 4 JSON snapshot interface.
+
+Runtime updates extend the existing subscriber transaction. Original A1 records
+and Member 2 inbox payloads are preserved. Read [AI assistance](AI_ASSISTANCE.md)
+when preparing the group disclosure.

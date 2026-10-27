@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "original_member2_table_differences": {
+    "audit.build_metadata": 0,
+    "audit.input_snapshot": 0,
+    "core.attribute_evidence": 0,
+    "core.charger_plug": 0,
+    "core.charger_record": 0,
+    "core.dc_augmentation": 0,
+    "core.dc_connection": 0,
+    "core.mqtt_event": 0,
+    "core.mqtt_rejection": 0,
+    "core.operator": 0,
+    "core.operator_profile": 0,
+    "core.plug_type": 0,
+    "core.sa4_region": 0
+  },
+  "packaged_database_sha256": "c4e545de291204c581765103fd3dbf06d85d1efb11b65b9d50e0ea906a4c05c8"
+}

@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "source_ids_unique": true,
+    "all_ids_and_payloads_equal": true,
+    "all_event_ids_join_a1": true,
+    "all_ev_ids_match_wire_station_ids": true,
+    "arrival_order_matches_source": true,
+    "event_type_counts_match": true,
+    "no_rejected_source_events": true
+  },
+  "passed": true,
+  "events": 2452,
+  "counts": {
+    "session_end": 62,
+    "session_start": 71,
+    "meter": 1886,
+    "price_update": 433
+  },
+  "a1_chargers": 1958,
+  "chargers_with_received_price": 433,
+  "active_sessions_at_window_end": 9,
+  "rejected": 0,
+  "source_sha256": "607e637a57df7160f5c98d6cf0057dc141e6af7eb2a2c902ba0156bb458fc00d",
+  "database_sha256": "d8c2e632bf6e4c22481d2c6bdd48929c5948a6da7f03a48963f48af25ef6af6f",
+  "session_states": {
+    "active": 9,
+    "completed": 62
+  },
+  "snapshot_reads": 2929,
+  "distinct_live_revisions": 818,
+  "original_table_differences": {
+    "audit.build_metadata": 0,
+    "audit.input_snapshot": 0,
+    "core.attribute_evidence": 0,
+    "core.charger_plug": 0,
+    "core.charger_record": 0,
+    "core.dc_augmentation": 0,
+    "core.dc_connection": 0,
+    "core.operator": 0,
+    "core.operator_profile": 0,
+    "core.plug_type": 0,
+    "core.sa4_region": 0
+  },
+  "elapsed_seconds": 267.23
+}

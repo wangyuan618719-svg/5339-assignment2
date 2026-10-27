@@ -8,6 +8,7 @@ from pathlib import Path
 import duckdb
 
 from .validation import InvalidEvent, canonical, decode
+from analytics.state import apply, rebuild
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -49,6 +50,7 @@ class Store:
             if not self.stations:
                 raise ValueError('empty station contract')
             self.db.execute((ROOT / 'sql/ingestion.sql').read_text(encoding='utf-8'))
+            rebuild(self.db)
         except BaseException:
             self.db.close()
             raise
@@ -69,9 +71,16 @@ class Store:
             if existing[0] != canonical(event):
                 raise RuntimeError('event ID conflict in database')
             return 'duplicate'
-        self.db.execute('INSERT INTO core.mqtt_event(event_id,ev_id,event_type,event_ts,session_id,connector_id,topic,payload) VALUES (?,?,?,?,?,?,?,?)',
-                        [event['event_id'], int(event['station_id']), event['type'], event['ts'],
-                         event.get('session_id'), event.get('connector_id'), topic, canonical(event)])
+        self.db.execute('BEGIN')
+        try:
+            self.db.execute('INSERT INTO core.mqtt_event(event_id,ev_id,event_type,event_ts,session_id,connector_id,topic,payload) VALUES (?,?,?,?,?,?,?,?)',
+                            [event['event_id'], int(event['station_id']), event['type'], event['ts'],
+                             event.get('session_id'), event.get('connector_id'), topic, canonical(event)])
+            apply(self.db, event)
+            self.db.execute('COMMIT')
+        except BaseException:
+            self.db.execute('ROLLBACK')
+            raise
         return 'stored'
 
     def close(self):

@@ -1,0 +1,2 @@
+ERROR:amqtt.broker:No data from (client @=127.0.0.1:59446) : No data to decode MQTT packet fixed header
+WARNING:amqtt.broker:Failed to initialize client session: No data to decode MQTT packet fixed header

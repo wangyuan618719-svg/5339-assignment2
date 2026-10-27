@@ -13,6 +13,7 @@ from pathlib import Path
 import paho.mqtt.client as mqtt
 
 from ingestion.storage import Store, initialise
+from analytics.queries import publish_snapshot
 
 LOG = logging.getLogger('subscriber')
 
@@ -38,15 +39,31 @@ def run(args):
     def writer():
         try:
             with Store(args.db) as store:
+                snapshot_path = getattr(args, 'snapshot', None)
+                interval = getattr(args, 'snapshot_interval', 1.0)
+                last_snapshot = time.monotonic()
+                if snapshot_path:
+                    publish_snapshot(store.db, snapshot_path)
                 ready.set()
                 while True:
-                    item = pending.get()
+                    try:
+                        item = pending.get(timeout=interval)
+                    except queue.Empty:
+                        if snapshot_path:
+                            publish_snapshot(store.db, snapshot_path)
+                            last_snapshot = time.monotonic()
+                        continue
                     try:
                         if item is None:
+                            if snapshot_path:
+                                publish_snapshot(store.db, snapshot_path)
                             return
                         epoch, mid, topic, payload, retained, qos = item
                         outcome = store.receive(topic, payload, retained, qos)
                         counters[outcome] += 1
+                        if snapshot_path and time.monotonic() - last_snapshot >= interval:
+                            publish_snapshot(store.db, snapshot_path)
+                            last_snapshot = time.monotonic()
                         if outcome == 'rejected':
                             LOG.warning('message quarantined; packet=%s outcomes=%s', mid, dict(counters))
                         # Never ACK an old connection's packet ID on a new connection.
@@ -157,13 +174,15 @@ def main():
     listen.add_argument('--queue-size', type=int, default=512)
     listen.add_argument('--run-seconds', type=float, default=0, help='0 means until Ctrl+C')
     listen.add_argument('--summary', type=Path)
+    listen.add_argument('--snapshot', type=Path, default=Path('runtime/dashboard.json'))
+    listen.add_argument('--snapshot-interval', type=float, default=1.0)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     if args.command == 'init':
         initialise(args.a1_db, args.db)
         LOG.info('Initialised %s from unchanged A1 database', args.db)
         return 0
-    if (args.queue_size < 1 or not math.isfinite(args.run_seconds) or args.run_seconds < 0 or not args.client_id
+    if (not math.isfinite(args.snapshot_interval) or args.snapshot_interval <= 0 or args.queue_size < 1 or not math.isfinite(args.run_seconds) or args.run_seconds < 0 or not args.client_id
             or not 1 <= args.port <= 65535 or not args.topic
             or any(c in args.topic for c in '+#\0')):
         parser.error('use a positive queue/port, stable client ID and exact event topic')

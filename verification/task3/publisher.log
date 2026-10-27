@@ -1,0 +1,3 @@
+Confirmed 1000; last_event_id=7fa063a14ef53f873c4e28427159b10301f9f2ff98aa6ed410ea11fc94f1b9bb
+Confirmed 2000; last_event_id=ca1e09c6ba83da6b6503b60bbec7c59aef6df723eb332121320fd7813c51add5
+{"confirmed": 2452, "last_event_id": "9d3e0f3cd5f92f4930fa518ffe55ac8d38e1d1b7bad2355242dc1a72de333ffb", "min_interval_seconds": 0.10052625000389526}

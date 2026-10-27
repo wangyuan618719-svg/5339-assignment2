@@ -1,0 +1,8 @@
+{
+  "analytics/state.py": true,
+  "analytics/queries.py": true,
+  "analytics/charts.py": true,
+  "ingestion/storage.py": true,
+  "subscriber.py": true,
+  "sql/analytics.sql": true
+}

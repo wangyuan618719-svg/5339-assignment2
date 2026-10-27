@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": {
+    "a1_and_member2_tables_unchanged": true,
+    "meter_count_matches_inbox": true,
+    "all_433_dc_stations_retained": true,
+    "completed_count_matches_end_events": true,
+    "active_count_matches_window_lifecycle": true,
+    "completed_energy_matches_end_events": true,
+    "snapshot_event_count_matches_database": true
+  },
+  "events": 2452,
+  "active_sessions": 9,
+  "completed_sessions": 62,
+  "completed_energy_kwh": 1674.91,
+  "completed_cost_aud": 1180.81
+}
